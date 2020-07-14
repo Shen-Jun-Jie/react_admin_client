@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import logo from './images/logo.png'
 import './login.less'
+import {reqLogin} from '../../api'
 
 // 登录的路由界面
 // 用户名密码的合法性要求
@@ -17,8 +18,9 @@ class Login extends Component {
         this.state = {  }
     }
 
-    onFinish = values => {
-        console.log(values)
+    onFinish = async values => {
+        const response = await reqLogin(values.username, values.password)
+        console.log(response)
     }
 
     render() { 
