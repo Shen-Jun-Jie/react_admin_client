@@ -3,20 +3,38 @@
 import Axios from 'axios'
 import {message} from 'antd'
 
-export default function ajax(url, data={}, method="GET") {
+// export default function ajax(url, data={}, method="GET") {
+//     return new Promise((reslove, reject) => {
+//         let promise
+//         if (method === "GET") {
+//             promise =  Axios.get(url, {
+//                 params: data
+//             })
+//         } else {
+//             promise = Axios.post(url, data)
+//         }
+
+//         promise.then(res => {
+//             reslove(res)
+//         }).catch( error => {
+//             message.error(error.message)
+//         })
+//     })
+    
+// }
+
+export default function  ajax(url, data={}, method="GET") {
     return new Promise((reslove, reject) => {
         let promise
         if (method === "GET") {
-            promise =  Axios.get(url, {
-                params: data
-            })
+            promise = Axios.get(url, {params: data})
         } else {
             promise = Axios.post(url, data)
         }
 
         promise.then(res => {
-            reslove(res)
-        }).catch( error => {
+            reslove(res.data)
+        }).catch((error) => {
             message.error(error.message)
         })
     })

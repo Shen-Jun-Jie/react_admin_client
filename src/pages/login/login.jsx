@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Redirect } from 'react-router-dom'
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import logo from './images/logo.png'
 import './login.less'
+import memoryUtils from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
 import {reqLogin} from '../../api'
 
 // 登录的路由界面
@@ -19,11 +22,23 @@ class Login extends Component {
     }
 
     onFinish = async values => {
-        const response = await reqLogin(values.username, values.password)
-        console.log(response)
+        const result = await reqLogin(values.username, values.password)
+        if (result.status === 0) {
+            memoryUtils.user = result.data
+            storageUtils.saveUser(memoryUtils.user)
+            this.props.history.replace("/")
+        } else {
+            message.error("登录失败")
+        }
+        
     }
 
     render() { 
+        const user = memoryUtils.user
+        if (user && user._id) {
+            return <Redirect to='/' />
+        }
+
         return ( 
             <div className="login">
                 <header className="login-header">
