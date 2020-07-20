@@ -35,3 +35,18 @@ export const reqWeather = (city) => {
         })
     })
 }
+
+// 获取一级或者二级分类
+export const reqCategory = (parentId=0) => {
+    return ajax("/manage/category/list", {parentId})
+}
+
+// 添加商品类别
+export const reqCategoryAdd = (categoryId, parentId) => {
+    return ajax("/manage/category/add", {categoryId, parentId}, "POST")
+}
+
+// 更新商品类别名称
+export const reqCategoryUpdate = (categoryId, categoryName) => {
+    return ajax("/manage/category/update", {categoryId, categoryName}, "POST")
+}

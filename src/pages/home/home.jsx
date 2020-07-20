@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './home.less'
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -7,8 +9,8 @@ class Home extends Component {
     }
     render() { 
         return ( 
-            <div>
-                Home
+            <div className="home">
+                欢迎使用react 后端管理
             </div>
          );
     }
