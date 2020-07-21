@@ -50,3 +50,17 @@ export const reqCategoryAdd = (categoryId, parentId) => {
 export const reqCategoryUpdate = (categoryId, categoryName) => {
     return ajax("/manage/category/update", {categoryId, categoryName}, "POST")
 }
+
+// 获取商品分页列表
+export const reqProduct = (pageNum=1, pageSize) => {
+    return ajax("/manage/product/list", {pageNum, pageSize})
+}
+
+// 根据关键字 查询 商品分页列表
+export const reqProductByKey = (pageNum=1, pageSize, searchName, searchType) => {
+    return ajax("/manage/product/search", {
+        pageNum,
+        pageSize,
+        [searchType]: searchName
+    })
+}

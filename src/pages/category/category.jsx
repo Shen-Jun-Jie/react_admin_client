@@ -163,7 +163,7 @@ class Category extends Component {
 
         return ( 
             <Card title={title} extra={extra}>
-                <Table bordered dataSource={showList} columns={this.columns} loading={loading} />
+                <Table rowKey="_id" bordered dataSource={showList} columns={this.columns} loading={loading} />
 
                 <Modal
                 title="添加分类"
