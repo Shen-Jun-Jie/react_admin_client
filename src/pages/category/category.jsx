@@ -27,7 +27,6 @@ class Category extends Component {
     }
 
     showUpdateModal = (category) => {
-        console.log(category)
         this.category = category
         this.setState({
             showStatus: 2
@@ -61,6 +60,8 @@ class Category extends Component {
     }
 
     handleCancel = () => {
+        this.form.current.resetFields()
+
         this.setState({
             showStatus: 0
         })
@@ -102,6 +103,25 @@ class Category extends Component {
             }
         } else {
             message.error("获取列表分类失败")
+        }
+    }
+
+    updateCategory = async () => {
+        this.setState({
+            showStatus: 0
+        })
+
+        let categoryId = this.category._id
+        console.log(this.form)
+        let categoryName = this.form.current.getFieldValue("categoryName")
+        
+        console.log(categoryId, categoryName)
+        const result = await reqCategoryUpdate(categoryId, categoryName)
+        console.log(result)
+        if (result.status === 0) {
+            this.getCategoryList()
+        } else {
+            message.error(result.msg)
         }
     }
 
@@ -160,7 +180,7 @@ class Category extends Component {
                 onOk={this.updateCategory}
                 onCancel={this.handleCancel}
                 >
-                <UpdateForm categoryName={category.name || ''} />
+                <UpdateForm categoryName={category.name || ''}  setCategoryName={(form) => {this.form = form}}/>
                 </Modal>
             </Card>
          );

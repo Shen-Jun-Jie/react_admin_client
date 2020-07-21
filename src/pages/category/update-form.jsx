@@ -10,18 +10,28 @@ class UpdateForm extends Component {
         this.state = {  }
     }
 
+
     static propTypes = {
-        categoryName: PropTypes.string.isRequired
+        categoryName: PropTypes.string.isRequired,
+        setCategoryName: PropTypes.func.isRequired
     }
 
+    formRef = React.createRef();
+
+    componentDidMount() {
+        const {categoryName} = this.props
+        this.formRef.current.setFieldsValue({categoryName});
+    }
+
+    componentWillMount() {
+        this.props.setCategoryName(this.formRef)
+    }
 
     render() { 
-        const {categoryName} = this.props
-        console.log(categoryName)
         return ( 
-            <Form>
-                <Item name="categoryName" initialValue={categoryName}>
-                    <Input ></Input>
+            <Form ref={this.formRef}>
+                <Item name="categoryName">
+                    <Input placeholder="请输入分类名称" ></Input>
                 </Item>
             </Form>
          );
